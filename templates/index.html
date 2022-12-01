@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- Required dependencies -->
+		<script type="text/javascript"
+						src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.6.1/prop-types.min.js"></script>
+		<script type="text/javascript"
+						src="https://cdnjs.cloudflare.com/ajax/libs/react/16.3.2/umd/react.production.min.js"></script>
+		<script type="text/javascript"
+						src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.3.2/umd/react-dom.production.min.js"></script>
+		<script type="application/javascript" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+		<script type="text/babel" data-presets="es2017, stage-3"
+						data-plugins="syntax-async-functions,transform-class-properties,transform-es2015-modules-umd, transform-async-to-generator"></script>
+		<!-- Optional dependencies -->
+		<script type="text/javascript"
+						src="https://cdnjs.cloudflare.com/ajax/libs/react-transition-group/2.2.1/react-transition-group.min.js"></script>
+		<script type="text/javascript"
+						src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script type="text/javascript"
+						src="https://cdnjs.cloudflare.com/ajax/libs/react-popper/0.10.4/umd/react-popper.min.js"></script>
+
+		<!-- Reactstrap -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reactstrap/7.1.0/reactstrap.min.js"></script>
+		<script src=" https://cdnjs.cloudflare.com/ajax/libs/react-router/4.3.1/react-router.min.js"></script>
+
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react-markdown/4.0.6/react-markdown.js"></script>
+		<script src="https://unpkg.com/react-router-dom@4.3.1/umd/react-router-dom.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+		<!-- Lastly, include your app's bundle -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+		<link type="text/css" rel="stylesheet" href="css/custom.css"/>
+
+</head>
+
+
+<body>
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h1 class="header">Detectron2 Web App - Mobile Friendly!</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col"><h2>IT 7133 - Group 5</h2></div>
+	</div>
+		
+	<div class="row">
+		<div class="col"><h4> Choose between: </h4></div>
+	</div>
+	
+	<div class="row">
+		<div class="col-4">
+		  <div class="list-group" id="list-tab" role="tablist">
+			<a class="list-group-item list-group-item-action active" id="list-upload-list" data-toggle="list" href="#list-upload" role="tab" aria-controls="upload">Upload Photo</a>
+			<a class="list-group-item list-group-item-action" id="list-url-list" data-toggle="list" href="#list-url" role="tab" aria-controls="url">Use Photo URL</a>
+			<a class="list-group-item list-group-item-action" id="list-samples-list" data-toggle="list" href="#list-samples" role="tab" aria-controls="samples">Sample Photos</a>
+		  </div>
+		</div>
+		<div class="col-8">
+			<div class="tab-content" id="nav-tabContent">
+		  		<div class="tab-pane fade show active" id="list-upload" role="tabpanel" aria-labelledby="list-upload-list">
+					<form class="row" action = "/detect" method = "POST" enctype = "multipart/form-data">
+						<div class="col">
+							<input class="form-control" type = "file" name = "file" id="file"  />
+						</div>
+						<div class="col">
+							<button name="submit" type="submit" class="btn btn-outline-primary">Submit</button>
+						</div>
+					</form>
+		  		</div>
+				<div class="tab-pane fade" id="list-url" role="tabpanel" aria-labelledby="list-url-list">
+					<form class="row" action = "/detect" method = "GET" enctype = "multipart/form-data">
+						<div class="col">
+							<input class="form-control" type="text" name="url" placeholder="Photo URL">
+						</div>
+						<div class="col">
+							<button type="submit" class="btn btn-outline-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+				<div class="tab-pane fade" id="list-samples" role="tabpanel" aria-labelledby="list-samples-list">
+					<form class="row" action = "/detect" method = "GET" enctype = "multipart/form-data">
+						<div class="col">
+							<select class="form-select" name="url">
+							  <option value="https://www.nme.com/wp-content/uploads/2019/12/oasis-2000x1270-1.jpg">Oasis Band Photo</option>
+							  <option value="https://i.ytimg.com/vi/JTk9dUHNjek/maxresdefault.jpg">Basketball</option>
+							  <option value="  https://www.indiewire.com/wp-content/uploads/2020/03/j-b-smoove-larry-david.jpg">curb your enthusiasm</option>
+							</select>
+						</div>
+						<div class="col">
+							<button type="submit" value="Submit" name="url" class="btn btn-outline-primary">Submit</button>
+						</div>
+					  </form>
+				</div>
+			</div>
+		</div>		
+
+	</div>
+
+
+
+
+
+	
+	<br>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
