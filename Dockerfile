@@ -1,11 +1,26 @@
 # adapted from: https://github.com/facebookresearch/detectron2/blob/master/docker/Dockerfile
 
 # FROM nvidia/cuda:10.2-cudnn7-devel
+FROM python:3.7
 FROM nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04
 
 ENV DEBIAN_FRONTEND noninteractive
+RUN rm /etc/apt/sources.list.d/cuda.list
+RUN rm /etc/apt/sources.list.d/nvidia-ml.list
+
 RUN apt-get update && apt-get install -y \
-	python3-opencv ca-certificates python3-dev git wget sudo curl && \
+    python3.7 python3.7-dev python3.7-distutils \
+    python3-opencv ca-certificates   git wget sudo ninja-build
+
+# Make python3 available for python3.7
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.6 1
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2
+RUN update-alternatives --config python3
+# Make python available for python3.7
+RUN ln -sv /usr/bin/python3.7 /usr/bin/python
+
+RUN apt-get update && apt-get install -y \
+        python3-opencv ca-certificates python3-dev git wget sudo curl && \
   rm -rf /var/lib/apt/lists/*
 
 # create a non-root user
@@ -16,13 +31,14 @@ USER appuser
 WORKDIR /home/appuser
 
 ENV PATH="/home/appuser/.local/bin:${PATH}"
-RUN wget https://bootstrap.pypa.io/get-pip.py && \
-	python3 get-pip.py --user && \
-	rm get-pip.py
+RUN wget https://bootstrap.pypa.io/pip/get-pip.py && \
+        python3.7 get-pip.py --user && \
+        rm get-pip.py
 
 # install dependencies
 # See https://pytorch.org/ for other options if you use a different version of CUDA
 RUN pip install --user tensorboard
+RUN pip install --user numpy==1.20.3
 RUN pip3 install --user torch==1.8.2+cu102 torchvision==0.9.2+cu102 torchaudio===0.8.2 -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
 
 RUN pip install --user 'git+https://github.com/facebookresearch/fvcore'
@@ -56,5 +72,4 @@ ENV PORT 8080
 EXPOSE 8080
 
 # CMD python app.py
-CMD ["python3", "app.py"] 
-
+CMD ["python3", "app.py"]
